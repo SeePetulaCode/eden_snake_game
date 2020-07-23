@@ -1,0 +1,29 @@
+html, body {
+  
+    height: 100%;
+    margin: 0;    
+    /* background-image: linear-gradient(to top, rgba(251,245,36,1), rgba(255,255,255,1), rgba(255,255,255,1)); */
+  
+  }
+   
+
+
+
+  body {
+    
+    display: block;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+img{
+  margin-top:10%;
+  weight:789px;
+  
+  
+}
+  canvas {
+    
+    
+  }
