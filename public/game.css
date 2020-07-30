@@ -1,35 +1,37 @@
-  html, body {
-    height: 100%;
-    margin: 0;
-    /* background: black; */
-    
-    background: url("https://cdn.glitch.com/7824329b-41c4-4700-a181-183949a4faba%2Fgarden.jpg?v=1594959679397") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    
-    
-    
+html, body {
+  height: 100%;
+  margin: 0;
+  /* background: black; */
   
-  }
-   
-
-
-
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  canvas {
-    border: 1px solid white;
-    background-image: linear-gradient(to bottom right, rgba(26,37,11,0.6), rgba(26,37,11,0.8));
-    /* background-image: linear-gradient(to bottom right, rgba(55,65,14,0.3), rgba(55,65,14,0.7)); */
-  }
-
-
-#appleimg {
-  
-  color: yellow;
+  background: url("https://cdn.glitch.com/7824329b-41c4-4700-a181-183949a4faba%2Fgarden.jpg?v=1594959679397") no-repeat center center fixed; 
+  -webkit-background-size: cover;
   
   
   
+
 }
+ 
+
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+canvas {
+  border: 1px solid white;
+  background-image: linear-gradient(to bottom right, rgba(26,37,11,0.6), rgba(26,37,11,0.8));
+}
+
+#scoreboard {
+
+font-family: 'Open Sans', sans-serif;
+color: white;
+font-size: 40px;
+text-shadow: 2px 2px 4px  rgba(0, 0, 0, 0.23);
+}
+
+
+

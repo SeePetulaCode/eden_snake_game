@@ -20,7 +20,7 @@ var snake = {
   currentLength: 4 //current length of the snake. grows when eating an apple.
 };
 
-// Snake skin Direction
+// Snake skin Direction; texture appears to follow direction of head
 let snakeSkinDir = 1;
 
 /* TO DO: create apple object below */
@@ -102,10 +102,7 @@ function snakeSquadLoop() {
   
   
   //  Score
-  context.font = "italic 30pt Calibri";
-  context.fillStyle = "white";
-  let text = "Score: " + score;
-  context.fillText(text, 450, 50);
+  document.getElementById("scoreboard").innerHTML = "Score: " + score;
 
   //  Plan: Draw Elements - Apple, Snake and Bitmoji
 
@@ -221,10 +218,13 @@ function drawCellWithBitmoji(cell) {
 checks if any cell in the snake is at the same x and y location of the apple
 returns true (the snake is eating the apple) or false (the snake is not eating the apple)
 */
+
 function snakeTouchesApple() {
   let head = snake.cells[0];
   if (head.x === apple.x && head.y === apple.y) {
-    score++;
+    score++; //Amt of apples
+    count = count + 5; //Game gets faster when snake eats apple
+    
     return true;
   } else {
     return false;
@@ -273,16 +273,28 @@ function checkCrashItself() {
 displays an alert and reloads the page
 */
 function endGame() {
-  //alert("GAME OVER");
-  let text = "";
-  context.font = "italic 30pt Calibri";
+  
+  
+  
+  
+  //Game Over txt 
+  context.font = "italic 60pt Open Sans";
   context.fillStyle = "white";
   let text2 = "Game Over";
-  text2 = "";
-  text2 = "Game Over";
-  text2 = "";
-  context.fillText(text2, 240, 100);
-  document.location.reload();
+  //let txtsize = context.measureText(text2); sampled txt size to center txt in box
+  // console.log(txtsize);
+  
+  context.fillText(text2, (canvas.width/2)-218, canvas.height/2);
+  
+  function reloadGame() {
+  
+    document.location.reload(); 
+    
+  }
+  //Pause to display GameOver txt
+  setTimeout(reloadGame, 1000);
+  
+  
 }
 
 /*getRandomInt
