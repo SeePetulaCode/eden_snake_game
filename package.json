@@ -1,0 +1,22 @@
+{
+  "name": "eden_snake_game",
+  "version": "1.0.0",
+  "description": "Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeePetulaCode/eden_snake_game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeePetulaCode/eden_snake_game/issues"
+  },
+  "homepage": "https://github.com/SeePetulaCode/eden_snake_game#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

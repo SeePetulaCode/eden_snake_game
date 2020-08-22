@@ -1,5 +1,5 @@
 /* 
-login.js
+login.jsyes
 
 This code handles the process so users can log in to Snake Squad using their Snap accounts on index.html. 
 Once logged in, the program redirects to game.html 
@@ -11,7 +11,7 @@ window.snapKitInit = function () {
   // Mount Login Button
   snap.loginkit.mountButton(loginButtonIconId, {
     clientId: 'c9c9f4ff-83b0-4aa2-816a-fb5f636c7e1f', /*YOU CHANGE: Must be changed to the development client ID on snapckit*/
-    redirectURI: 'https://petula-snakegame.glitch.me/', /*YOU CHANGE: Must be changed to your glitch project's url AND added as the redirect URI on snapkit */
+    redirectURI: 'http://localhost:3000', /*YOU CHANGE: Must be changed to your glitch project's url AND added as the redirect URI on snapkit */
     scopeList: [
       'user.display_name',
       'user.bitmoji.avatar',
