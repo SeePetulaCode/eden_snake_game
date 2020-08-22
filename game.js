@@ -10,6 +10,7 @@ var context = canvas.getContext("2d");
 var grid = 40;
 var count = 0;
 var score = 0;
+let highscore = localStorage.getItem("highscore");
 var snake = {
   x: 160,
   y: 160,
@@ -20,7 +21,7 @@ var snake = {
   currentLength: 4 //current length of the snake. grows when eating an apple.
 };
 
-// Snake skin Direction
+// Snake skin Direction; texture appears to follow direction of head
 let snakeSkinDir = 1;
 
 /* TO DO: create apple object below */
@@ -74,6 +75,61 @@ document.addEventListener("keydown", function(e) {
   }
 });
 
+
+// start touch function
+var startX = 0;
+var startY = 0;
+
+document.addEventListener('touchstart', function(e){
+    var touch = e.changedTouches[0]
+    startX = touch.pageX
+    startY = touch.pageY
+  
+    e.preventDefault()
+}, false)
+
+document.addEventListener('touchmove', function(e){
+    e.preventDefault()
+}, false)
+
+document.addEventListener('touchend', function(e){
+    var touch = e.changedTouches[0]
+    let distanceX = touch.pageX - startX
+    let distanceY = touch.pageY - startY
+
+    if (Math.abs(distanceX) > Math.abs(distanceY)) {
+      if (distanceX > 0 && snake.x_step === 0) {
+        snake.x_step = grid;
+        snake.y_step = 0;
+      }
+      else if (distanceX < 0 && snake.x_step === 0) {
+        snake.x_step  = -grid;
+        snake.y_step = 0;
+      }
+    } else {
+      if (distanceY > 0 && snake.y_step === 0) {
+        snake.y_step = grid;
+        snake.x_step  = 0;
+      }
+      else if (distanceY < 0 && snake.y_step === 0) {
+        snake.y_step = -grid;
+        snake.x_step  = 0;
+      }
+    }
+    e.preventDefault();
+
+}, false)
+
+
+
+
+
+
+
+
+
+
+
 /***HELPER FUNCTIONS***/
 
 /*snakeSquadLoop: This is the main code that is run each time the game loops*/
@@ -101,11 +157,9 @@ function snakeSquadLoop() {
   drawSnake(); // Create Snake image - working
   
   
-  //  Score
-  context.font = "italic 30pt Calibri";
-  context.fillStyle = "white";
-  let text = "Score: " + score;
-  context.fillText(text, 450, 50);
+  //  Score Board
+ scoreBoard();
+  
 
   //  Plan: Draw Elements - Apple, Snake and Bitmoji
 
@@ -155,11 +209,32 @@ function calculateSnakeMove() {
   }
 }
 
+
+/* Score Board */
+ function scoreBoard() {
+    
+
+  if(highscore !== null){
+    highscore === 0;
+    if (score > highscore) {
+        // save highest score
+        highscore = score;
+        localStorage.setItem("highscore", score);      
+    }
+  }
+  else{
+    // save highest score
+    localStorage.setItem("highscore", score);
+  }
+ 
+   document.getElementById("scoreboard").innerHTML = "Highest Score: " + highscore + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "Score: " +         score;
+
+   
+ }
+
 /*drawApple
 uses context functions to fill the cell at apple.x and apple.y with apple.color 
 */
-
-/* Thu 11:59 - Might change */
 function drawApple() {
   /* TO DO */
 
@@ -197,6 +272,7 @@ function drawSnake() {
   }
 }
 
+
 /*drawCellWithBitmoji
 Takes a cell (with an x and y property) and fills the cell with a bitmoji instead of a square
 */
@@ -221,10 +297,13 @@ function drawCellWithBitmoji(cell) {
 checks if any cell in the snake is at the same x and y location of the apple
 returns true (the snake is eating the apple) or false (the snake is not eating the apple)
 */
+
 function snakeTouchesApple() {
   let head = snake.cells[0];
   if (head.x === apple.x && head.y === apple.y) {
-    score++;
+    score++; //Amt of apples
+    count = count + 5; //Game gets faster when snake eats apple
+    
     return true;
   } else {
     return false;
@@ -273,16 +352,30 @@ function checkCrashItself() {
 displays an alert and reloads the page
 */
 function endGame() {
-  //alert("GAME OVER");
-  let text = "";
-  context.font = "italic 30pt Calibri";
+  
+  
+  
+  
+  //Game Over txt 
+  context.font = "italic 60pt Open Sans";
   context.fillStyle = "white";
   let text2 = "Game Over";
-  text2 = "";
-  text2 = "Game Over";
-  text2 = "";
-  context.fillText(text2, 240, 100);
-  document.location.reload();
+  //let txtsize = context.measureText(text2); sampled txt size to center txt in box
+  // console.log(txtsize);
+  
+  context.fillText(text2, (canvas.width/2)-218, canvas.height/2);
+  
+
+  
+  function reloadGame() {
+  
+    document.location.reload(); 
+    
+  }
+  //Pause to display GameOver txt
+  setTimeout(reloadGame, 1000);
+  
+  
 }
 
 /*getRandomInt
