@@ -10,6 +10,7 @@ var context = canvas.getContext("2d");
 var grid = 40;
 var count = 0;
 var score = 0;
+let highscore = localStorage.getItem("highscore");
 var snake = {
   x: 160,
   y: 160,
@@ -74,6 +75,61 @@ document.addEventListener("keydown", function(e) {
   }
 });
 
+
+// start touch function
+var startX = 0;
+var startY = 0;
+
+document.addEventListener('touchstart', function(e){
+    var touch = e.changedTouches[0]
+    startX = touch.pageX
+    startY = touch.pageY
+  
+    e.preventDefault()
+}, false)
+
+document.addEventListener('touchmove', function(e){
+    e.preventDefault()
+}, false)
+
+document.addEventListener('touchend', function(e){
+    var touch = e.changedTouches[0]
+    let distanceX = touch.pageX - startX
+    let distanceY = touch.pageY - startY
+
+    if (Math.abs(distanceX) > Math.abs(distanceY)) {
+      if (distanceX > 0 && snake.x_step === 0) {
+        snake.x_step = grid;
+        snake.y_step = 0;
+      }
+      else if (distanceX < 0 && snake.x_step === 0) {
+        snake.x_step  = -grid;
+        snake.y_step = 0;
+      }
+    } else {
+      if (distanceY > 0 && snake.y_step === 0) {
+        snake.y_step = grid;
+        snake.x_step  = 0;
+      }
+      else if (distanceY < 0 && snake.y_step === 0) {
+        snake.y_step = -grid;
+        snake.x_step  = 0;
+      }
+    }
+    e.preventDefault();
+
+}, false)
+
+
+
+
+
+
+
+
+
+
+
 /***HELPER FUNCTIONS***/
 
 /*snakeSquadLoop: This is the main code that is run each time the game loops*/
@@ -101,8 +157,9 @@ function snakeSquadLoop() {
   drawSnake(); // Create Snake image - working
   
   
-  //  Score
-  document.getElementById("scoreboard").innerHTML = "Score: " + score;
+  //  Score Board
+ scoreBoard();
+  
 
   //  Plan: Draw Elements - Apple, Snake and Bitmoji
 
@@ -152,11 +209,32 @@ function calculateSnakeMove() {
   }
 }
 
+
+/* Score Board */
+ function scoreBoard() {
+    
+
+  if(highscore !== null){
+    highscore === 0;
+    if (score > highscore) {
+        // save highest score
+        highscore = score;
+        localStorage.setItem("highscore", score);      
+    }
+  }
+  else{
+    // save highest score
+    localStorage.setItem("highscore", score);
+  }
+ 
+   document.getElementById("scoreboard").innerHTML = "Highest Score: " + highscore + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "Score: " +         score;
+
+   
+ }
+
 /*drawApple
 uses context functions to fill the cell at apple.x and apple.y with apple.color 
 */
-
-/* Thu 11:59 - Might change */
 function drawApple() {
   /* TO DO */
 
@@ -193,6 +271,7 @@ function drawSnake() {
     
   }
 }
+
 
 /*drawCellWithBitmoji
 Takes a cell (with an x and y property) and fills the cell with a bitmoji instead of a square
@@ -285,6 +364,8 @@ function endGame() {
   // console.log(txtsize);
   
   context.fillText(text2, (canvas.width/2)-218, canvas.height/2);
+  
+
   
   function reloadGame() {
   
