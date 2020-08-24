@@ -1,7 +1,7 @@
 # Eden
 
- 'Eden'  is a Javascript Snake game with Snap bitmoji integretion.  
- Features: 1. Speed increases when snake consumes apple. 2. Current and Highest Score.
+ 'Eden' is a Javascript Snake game with Snap Bitmoji integration.  
+ Features: Speed increases when the snake consumes apple. Current and Highest Score.
 
 ![](https://res.cloudinary.com/b1917/image/upload/v1598251499/portfolio/snake_game.jpg)
 
