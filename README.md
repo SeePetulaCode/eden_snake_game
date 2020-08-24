@@ -34,6 +34,9 @@ Game Background - garden.jpg \
 Apple - apple4.png  \
 Snake Skin -  snake3.png 
 
+
+
+
 ## Credits
 
 This starter code was adapted from:
